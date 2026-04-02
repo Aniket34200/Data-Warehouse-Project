@@ -1,86 +1,97 @@
 --*************************************************************************
---                 Bulk insertion data with Full load 
+--        Bulk insertion data with Full load using Stored Procedure
 --*************************************************************************
 
+CREATE OR ALTER PROCEDURE bronze.load_bronze 
+AS  
+BEGIN
 
---=========================================================================
---                       bronze.crm_cust_info
---=========================================================================
-TRUNCATE TABLE bronze.crm_cust_info;
+    BEGIN TRY
+        --=========================================================================
+        --                       bronze.crm_cust_info
+        --=========================================================================
+        TRUNCATE TABLE bronze.crm_cust_info;
 
-BULK INSERT bronze.crm_cust_info
-FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_crm\cust_info.csv'
-WITH(
-    FIRSTROW = 2,
-    FIELDTERMINATOR = ',', 
-    TABLOCK
-);
+        BULK INSERT bronze.crm_cust_info
+        FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_crm\cust_info.csv'
+        WITH(
+            FIRSTROW = 2,
+            FIELDTERMINATOR = ',', 
+            TABLOCK
+        );
 
---=========================================================================
---                      bronze.crm_prd_info
---=========================================================================
-TRUNCATE TABLE bronze.crm_prd_info;
+        --=========================================================================
+        --                      bronze.crm_prd_info
+        --=========================================================================
+        TRUNCATE TABLE bronze.crm_prd_info;
 
-BULK INSERT bronze.crm_prd_info
-FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_crm\prd_info.csv'
-WITH(
-    FIRSTROW = 2,
-    FIELDTERMINATOR = ',', 
-    TABLOCK
-);
+        BULK INSERT bronze.crm_prd_info
+        FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_crm\prd_info.csv'
+        WITH(
+            FIRSTROW = 2,
+            FIELDTERMINATOR = ',', 
+            TABLOCK
+        );
 
---=========================================================================
---                      bronze.crm_sales_details
---=========================================================================
-TRUNCATE TABLE bronze.crm_sales_details;
+        --=========================================================================
+        --                      bronze.crm_sales_details
+        --=========================================================================
+        TRUNCATE TABLE bronze.crm_sales_details;
 
-BULK INSERT bronze.crm_sales_details
-FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_crm\sales_details.csv'
-WITH(
-    FIRSTROW = 2,
-    FIELDTERMINATOR = ',', 
-    TABLOCK
-);
+        BULK INSERT bronze.crm_sales_details
+        FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_crm\sales_details.csv'
+        WITH(
+            FIRSTROW = 2,
+            FIELDTERMINATOR = ',', 
+            TABLOCK
+        );
 
 
 
---=========================================================================
---                      bronze.erp_cust_az12
---=========================================================================
-TRUNCATE TABLE bronze.erp_cust_az12;
+        --=========================================================================
+        --                      bronze.erp_cust_az12
+        --=========================================================================
+        TRUNCATE TABLE bronze.erp_cust_az12;
 
-BULK INSERT bronze.erp_cust_az12
-FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_erp\CUST_AZ12.csv'
-WITH(
-    FIRSTROW = 2,
-    FIELDTERMINATOR = ',', 
-    TABLOCK
-);
+        BULK INSERT bronze.erp_cust_az12
+        FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_erp\CUST_AZ12.csv'
+        WITH(
+            FIRSTROW = 2,
+            FIELDTERMINATOR = ',', 
+            TABLOCK
+        );
 
---=========================================================================
---                      bronze.erp_loc_a101
---=========================================================================
-TRUNCATE TABLE bronze.erp_loc_a101;
+        --=========================================================================
+        --                      bronze.erp_loc_a101
+        --=========================================================================
+        TRUNCATE TABLE bronze.erp_loc_a101;
 
-BULK INSERT bronze.erp_loc_a101
-FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_erp\LOC_A101.csv'
-WITH(
-    FIRSTROW = 2,
-    FIELDTERMINATOR = ',', 
-    TABLOCK
-);
+        BULK INSERT bronze.erp_loc_a101
+        FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_erp\LOC_A101.csv'
+        WITH(
+            FIRSTROW = 2,
+            FIELDTERMINATOR = ',', 
+            TABLOCK
+        );
 
---=========================================================================
---                      bronze.erp_px_cat_g1v2
---=========================================================================
-TRUNCATE TABLE bronze.erp_px_cat_g1v2;
+        --=========================================================================
+        --                      bronze.erp_px_cat_g1v2
+        --=========================================================================
+        TRUNCATE TABLE bronze.erp_px_cat_g1v2;
 
-BULK INSERT bronze.erp_px_cat_g1v2
-FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_erp\PX_CAT_G1V2.csv'
-WITH(
-    FIRSTROW = 2,
-    FIELDTERMINATOR = ',', 
-    TABLOCK
-);
-
+        BULK INSERT bronze.erp_px_cat_g1v2
+        FROM 'E:\_My Data Projects\Data-Warehouse-Project\source_erp\PX_CAT_G1V2.csv'
+        WITH(
+            FIRSTROW = 2,
+            FIELDTERMINATOR = ',', 
+            TABLOCK
+        );
+    END TRY
+    BEGIN CATCH 
+        PRINT '---------------Error Occurred----------------';
+        PRINT 'Error Message:' + ERROR_MESSAGE();
+        PRINT 'Error Number:' + ERROR_NUMBER();
+        PRINT 'Error Line:' + ERROR_LINE();
+    END CATCH
+END
 
