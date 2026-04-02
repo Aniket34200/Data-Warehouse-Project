@@ -47,7 +47,6 @@ BEGIN
         );
 
 
-
         --=========================================================================
         --                      bronze.erp_cust_az12
         --=========================================================================
@@ -88,10 +87,9 @@ BEGIN
         );
     END TRY
     BEGIN CATCH 
-        PRINT '---------------Error Occurred----------------';
+        PRINT '---------------Error Occurred--------------------';
         PRINT 'Error Message:' + ERROR_MESSAGE();
         PRINT 'Error Number:' + ERROR_NUMBER();
         PRINT 'Error Line:' + ERROR_LINE();
     END CATCH
 END
-
