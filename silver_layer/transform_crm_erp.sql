@@ -5,6 +5,7 @@
 --=========================================================================
 --                       silver.crm_cust_info
 --=========================================================================
+TRUNCATE TABLE silver.crm_cust_info;
 
 INSERT INTO silver.crm_cust_info (
     cst_id, 
@@ -38,13 +39,14 @@ FROM (
         ROW_NUMBER() OVER(PARTITION BY cst_id ORDER BY cst_create_date desc) as flag
     FROM bronze.crm_cust_info
 )t 
-where flag = 1 AND cst_id IS NOT NULL   -- select the most recent record and non null values
+where flag = 1 AND cst_id IS NOT NULL;   -- select the most recent record and non null values
 
 
 
 --=========================================================================
 --                      silver.crm_prd_info
 --=========================================================================
+TRUNCATE TABLE silver.crm_prd_info;
 
 INSERT INTO silver.crm_prd_info(
     prd_id,
@@ -74,13 +76,14 @@ SELECT
     DATEADD(DAY, -1, 
         LEAD(prd_start_dt) OVER(PARTITION BY prd_key ORDER BY prd_start_dt)
     ) AS prd_prev_end_dt
-FROM bronze.crm_prd_info
+FROM bronze.crm_prd_info;
 
 
 
 --=========================================================================
 --                      silver.crm_sales_details
 --=========================================================================
+TRUNCATE TABLE silver.crm_sales_details;
 
 INSERT INTO silver.crm_sales_details (
     sls_ord_num,
@@ -121,13 +124,14 @@ SELECT
             THEN sls_sales / NULLIF(sls_quantity,0)
         Else sls_price 
     END AS sls_price 
-FROM bronze.crm_sales_details
+FROM bronze.crm_sales_details;
 
 
 
 --=========================================================================
 --                      silver.erp_cust_az12
 --=========================================================================
+TRUNCATE TABLE silver.erp_cust_az12;
 
 INSERT INTO silver.erp_cust_az12 (
     cid,
@@ -146,13 +150,14 @@ SELECT
         WHEN UPPER(TRIM(gen)) IN ('M','MALE') THEN 'Male'
         ELSE 'Unknown'
     END AS gen
-FROM bronze.erp_cust_az12
+FROM bronze.erp_cust_az12;
 
 
 
 --=========================================================================
 --                      silver.erp_loc_a101
 --=========================================================================
+TRUNCATE TABLE silver.erp_loc_a101;
 
 INSERT INTO silver.erp_loc_a101 (
     cid, 
@@ -167,13 +172,14 @@ SELECT
         WHEN country = '' OR country IS NULL THEN 'Unknown'
         ELSE country 
     END AS country
-FROM bronze.erp_loc_a101
+FROM bronze.erp_loc_a101;
 
 
 
 --=========================================================================
 --                      silver.erp_px_cat_g1v2
 --=========================================================================
+TRUNCATE TABLE silver.erp_px_cat_g1v2;
 
 INSERT INTO silver.erp_px_cat_g1v2 (
     id, 
@@ -187,6 +193,6 @@ SELECT
     cat,
     subcat,
     maintenance
-FROM bronze.erp_px_cat_g1v2
+FROM bronze.erp_px_cat_g1v2;
 
 
