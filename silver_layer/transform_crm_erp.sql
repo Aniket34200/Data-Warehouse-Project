@@ -147,3 +147,46 @@ SELECT
         ELSE 'Unknown'
     END AS gen
 FROM bronze.erp_cust_az12
+
+
+
+--=========================================================================
+--                      silver.erp_loc_a101
+--=========================================================================
+
+INSERT INTO silver.erp_loc_a101 (
+    cid, 
+    country
+)
+
+SELECT
+    REPLACE(cid, '-','') AS cid, 
+    CASE 
+        WHEN country = 'DE' THEN 'Germany' 
+        WHEN country IN ('USA', 'US') THEN 'United States'
+        WHEN country = '' OR country IS NULL THEN 'Unknown'
+        ELSE country 
+    END AS country
+FROM bronze.erp_loc_a101
+
+
+
+--=========================================================================
+--                      silver.erp_px_cat_g1v2
+--=========================================================================
+
+INSERT INTO silver.erp_px_cat_g1v2 (
+    id, 
+    cat,
+    subcat,
+    maintenance
+)
+
+SELECT
+    id,
+    cat,
+    subcat,
+    maintenance
+FROM bronze.erp_px_cat_g1v2
+
+
