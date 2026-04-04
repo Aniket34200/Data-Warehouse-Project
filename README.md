@@ -46,9 +46,9 @@ This project follows a layered architecture:
 
 ## 📂 Project Structure
 ```
-bronze/   → Raw data ingestion  
-silver/   → Data cleaning & transformation  
-gold/     → Final business views  
+bronze_layer/   → Raw data ingestion  
+silver_layer/   → Data cleaning & transformation  
+gold_layer/     → Final business views  
 ```
 
 ---
